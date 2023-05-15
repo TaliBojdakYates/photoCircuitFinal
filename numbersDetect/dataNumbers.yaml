@@ -1,0 +1,9 @@
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path:  C:\Users\talib\OneDrive\Desktop\objectDetection\numbersDetect
+train: C:\Users\talib\OneDrive\Desktop\objectDetection\numbersDetect\images  # train images (relative to 'path') 128 images
+val: C:\Users\talib\OneDrive\Desktop\objectDetection\numbersDetect\images  # val images (relative to 'path') 128 images
+
+
+
+nc: 20
+names: ['V','2', '1', '0', '3', 'I', 'A', '4', '6', '8', '7', '5', '9', 'k', 'M', '.', 'x', 'u', 'm','n']
