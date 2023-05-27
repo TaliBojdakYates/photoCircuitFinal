@@ -11,7 +11,7 @@ def number_detect(image_path,values):
 
     image = image_path
 
-    results = model.predict(source=image, save=True)  # can also put ,save=True
+    results = model.predict(source=image)  # can also put ,save=True
 
     results = results[0].boxes
     boxesOriginal = results.xyxy.tolist() # this holds the bounding box coordinates
