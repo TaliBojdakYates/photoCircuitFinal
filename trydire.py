@@ -6,6 +6,13 @@ import random
 from defs import *
 import math
 from numbersDetect.detectNumber import number_detect
+import PySpice
+import os
+import PySpice.Logging.Logging as Logging
+logger = Logging.setup_logging()
+from PySpice.Spice.Netlist import Circuit
+from PySpice.Unit import *
+
 # Load a model
 model = YOLO()
 model = YOLO("train4/weights/best.pt")
@@ -327,30 +334,15 @@ for component in components:
 print(lowestNode)
 
 
-
-
 cv2.imshow("out1", imgOrg)
 cv2.waitKey(0)
 
 
 ## solving circuit ************
-# todo idk what this is????????
-# componentValues = []
-# for inner_list in components:
-#     digits = ""
-#     for char in inner_list[1]:
-#         if char.isdigit():
-#             digits += char
-#     componentValues.append([digits, inner_list[2]])
-#
-# print(componentValues)
 
-import PySpice
-import os
-import PySpice.Logging.Logging as Logging
-logger = Logging.setup_logging()
-from PySpice.Spice.Netlist import Circuit
-from PySpice.Unit import *
+
+
+
 
 # from PySpice.Spice.Simulation import Transient
 # from PySpice.Spice.Simulation import dc
@@ -367,24 +359,19 @@ for component in components:
 print(components)
 
 for component in components:
-
+    val = component.value
+    print(component.classType)
     if component.classType == VOLTAGE:
-        print('voltage source \n')
-        val = 10
         circuit.V(component.id,component.nodes[0],component.nodes[1],val)
     elif component.classType == RESISTOR:
-        print('resistor\n')
-        val = 5
         circuit.R(component.id,component.nodes[0],component.nodes[1],val)
     elif component.classType == DEPVOLTAGE:
         print('dependent voltage source\n')
-    elif component.classType == CURRENT:
-        print('current source\n')
-        val = 2
+    elif component.classType == CURRENT:        
         circuit.I(component.id,component.nodes[0],component.nodes[1],val)
     elif component.classType == None:
-        print('dependent current source\n')
-# print(circuit)
+        print('Error')
+print(circuit)
 
 els = [i for i in circuit.element_names]
 for i in els:
@@ -406,10 +393,10 @@ for node in analysis.nodes.values():
 cv2.imshow("out1", imgOrg)
 cv2.waitKey(0)
 
-# # todo need a way to determine the closest line to a feature
-# # todo gets confused when more symbols on the circuit, when too much noise
+# # # todo need a way to determine the closest line to a feature
+# # # todo gets confused when more symbols on the circuit, when too much noise
 
-# # todo for user
-# # make sure some white space between circuit and edge
-# # best if done on plain light background
-# # remove extra symbols, just values of the components
+# # # todo for user
+# # # make sure some white space between circuit and edge
+# # # best if done on plain light background
+# # # remove extra symbols, just values of the components
